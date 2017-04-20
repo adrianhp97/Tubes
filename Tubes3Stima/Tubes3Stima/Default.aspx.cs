@@ -75,5 +75,10 @@ namespace Tubes3Stima
                 throw;
             }
         }
+
+        public void ParsingHTML(string link)
+        {
+
+        }
     }
 }
