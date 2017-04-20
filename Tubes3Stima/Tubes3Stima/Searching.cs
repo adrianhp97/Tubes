@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace Tubes3Stima
@@ -126,7 +127,9 @@ namespace Tubes3Stima
 
         public static int RegexSearch(string text, string pattern)
         {
+            Regex s = new Regex(@pattern);
 
+            return s.Matches(text);
         }
     }
 }
