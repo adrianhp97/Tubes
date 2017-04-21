@@ -8,96 +8,36 @@ namespace Tubes3Stima
 {
     public class Searching
     {
-        public static int BmMatch(string text, string pattern)
-        {
-            int last[] = BuildLast(pattern);
-            int n = text.Length;
-            int m = pattern.Length;
-            int i = m - 1;
-
-            if (n > n-1)
-            {
-                return -1;
-            }
-            else
-            {
-                int j = m - 1;
-                do
-                {
-                    if (pattern.ElementAt(j) == text.ElementAt(i))
-                    {
-                        if (j == 0)
-                        {
-                            return i;
-                        }
-                        else
-                        {
-                            i--;
-                            j--;
-                        }
-                    }
-                    else
-                    {
-                        int lo = last[text.ElementAt(i)];
-                        i = i + m - Math.Min(j, 1 + lo);
-                        j = m - 1;
-                    }
-                } while (i <= n - 1)
-
-                return -1;
-            }
-        }
-
-        public static int[] BuildLast(string pattern)
-        {
-            int last[] = new int[128];
-
-            for (int idx = 0; idx < 128; idx++)
-            {
-                last[idx] = -1;
-            }
-
-            for(int idx = 0; idx < pattern.Length; idx++)
-            {
-                last[pattern.ElementAt(idx)] = idx;
-            }
-
-            return last;
-        }
-
-        public static int KmpMatch(string text, string pattern)
+        public static bool KmpMatch(string text, string pattern)
         {
             int n = text.Length;
             int m = pattern.Length;
 
-            int fail[] = computeFail(pattern);
+            int[] fail = ComputeFail(pattern);
+
+            int i = 0;
+            int j = 0;
 
             while (i < n)
             {
-                if (pattern.ElementAt(j) == text.ElementAt(i))
+                if (pattern[j] == text[i])
                 {
-                    if (j == m -1)
-                    {
-                        return i - m + 1;
-                    }
+                    if (j == m - 1)
+                        return true; // match
                     i++;
                     j++;
                 }
                 else if (j > 0)
-                {
                     j = fail[j - 1];
-                }
                 else
-                {
                     i++;
-                }
             }
-            return -1;
+            return false; // no match
         }
 
-        public static int[] computeFail(string pattern)
+        public static int[] ComputeFail(string pattern)
         {
-            int fail[] = new int[pattern.Length];
+            int[] fail = new int[pattern.Length];
             fail[0] = 0;
 
             int m = pattern.Length;
@@ -106,18 +46,16 @@ namespace Tubes3Stima
 
             while (i < m)
             {
-                if (pattern.ElementAt(j) == pattern.ElementAt(i))
-                {
+                if (pattern[j] == pattern[i])
+                { // j + 1 chars match
                     fail[i] = j + 1;
                     i++;
                     j++;
                 }
-                else if (j > 0)
-                {
+                else if (j > 0) // j follows matching prefix
                     j = fail[j - 1];
-                }
                 else
-                {
+                { // no match
                     fail[i] = 0;
                     i++;
                 }
@@ -125,11 +63,50 @@ namespace Tubes3Stima
             return fail;
         }
 
-        public static int RegexSearch(string text, string pattern)
+        public static bool BmMatch(string text, string pattern)
         {
-            Regex s = new Regex(@pattern);
+            int[] last = BuildLast(pattern);
+            int n = text.Length;
+            int m = pattern.Length;
+            int i = m - 1;
 
-            return s.Matches(text);
+            if (i > n - 1)
+                return false;// no match if pattern is longer than text
+            
+            int j = m - 1;
+
+            do
+            {
+                if (pattern[j] == text[i])
+                    if (j == 0)
+                        return true; // match
+                    else
+                    {
+                        i--;
+                        j--;
+                    }
+                else
+                {
+                    int lo = last[text[i]];
+                    i = i + m - Math.Min(j, 1 + lo);
+                    j = m - 1;
+                }
+            } while (i <= n - 1);
+            return false; // no match
+        }
+
+        public static int[] BuildLast(string pattern)
+        {
+            /* Return array storing index of last occurence of each ascii char in pattern */
+            int[] last = new int[128]; // ASCII char set
+
+            for (int i = 0; i < 128; i++)
+                last[i] = -1;
+
+            for (int i = 0; i < pattern.Length; i++)
+                last[pattern[i]] = i;
+
+            return last;
         }
     }
 }
