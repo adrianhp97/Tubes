@@ -17,7 +17,7 @@ namespace Tubes3Stima
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 ParsingRss();
             }
@@ -37,7 +37,7 @@ namespace Tubes3Stima
                 {
                     listRss.Add(linkLine);
                 }
- 
+
                 try
                 {
                     XDocument dataTemp = new XDocument();
@@ -74,9 +74,7 @@ namespace Tubes3Stima
                                     }
                                     catch (Exception)
                                     {
-
                                     }
-
                                     if (Searching.KmpMatch(tempText.ToLower(), "vivada".ToLower()))
                                         found = true;
                                     else
@@ -88,7 +86,6 @@ namespace Tubes3Stima
                                     var page = webClient.DownloadString(itemAdd.link.ToLower());
                                     HtmlDocument doc = new HtmlDocument();
                                     doc.LoadHtml(page);
-
                                     try
                                     {
                                         foreach (var td in doc.DocumentNode.SelectNodes("//div[@class='artikel']/p"))
@@ -146,9 +143,7 @@ namespace Tubes3Stima
                                     }
                                     catch (Exception)
                                     {
-
                                     }
-
                                     if (Searching.KmpMatch(tempText.ToLower(), "vivada".ToLower()))
                                         found = true;
                                     else
@@ -178,7 +173,7 @@ namespace Tubes3Stima
             }
             catch (Exception)
             {
-               
+
             }
         }
     }

@@ -72,7 +72,7 @@ namespace Tubes3Stima
 
             if (i > n - 1)
                 return false;// no match if pattern is longer than text
-            
+
             int j = m - 1;
 
             do
@@ -107,6 +107,13 @@ namespace Tubes3Stima
                 last[pattern[i]] = i;
 
             return last;
+        }
+
+        public static bool RegexMatch(string text, string pattern)
+        {
+            string patternCek = @"\b(" + pattern + @")\b";
+            Match match = Regex.Match(input, pattern);
+            return match.Success;
         }
     }
 }
