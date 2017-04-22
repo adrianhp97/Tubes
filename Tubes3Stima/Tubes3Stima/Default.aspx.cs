@@ -22,7 +22,6 @@ namespace Tubes3Stima
                 ParsingRss();
             }
         }
-
         private void ParsingRss()
         {
             List<string> listRss = new List<string>();
@@ -38,10 +37,7 @@ namespace Tubes3Stima
                 {
                     listRss.Add(linkLine);
                 }
-
-                gvRss.DataSource = linkLine;
-                gvRss.DataBind();
-
+ 
                 try
                 {
                     XDocument dataTemp = new XDocument();
@@ -81,7 +77,7 @@ namespace Tubes3Stima
 
                                     }
 
-                                    if (Searching.KmpMatch(tempText.ToLower(), "pada".ToLower()))
+                                    if (Searching.KmpMatch(tempText.ToLower(), "vivada".ToLower()))
                                         found = true;
                                     else
                                         found = false;
@@ -105,7 +101,7 @@ namespace Tubes3Stima
 
                                     }
 
-                                    if (Searching.KmpMatch(tempText.ToLower(), "pada".ToLower()))
+                                    if (Searching.KmpMatch(tempText.ToLower(), "vivada".ToLower()))
                                         found = true;
                                     else
                                         found = false;
@@ -129,7 +125,7 @@ namespace Tubes3Stima
 
                                     }
 
-                                    if (Searching.KmpMatch(tempText.ToLower(), "pada".ToLower()))
+                                    if (Searching.KmpMatch(tempText.ToLower(), "vivada".ToLower()))
                                         found = true;
                                     else
                                         found = false;
@@ -153,7 +149,7 @@ namespace Tubes3Stima
 
                                     }
 
-                                    if (Searching.KmpMatch(tempText.ToLower(), "pada".ToLower()))
+                                    if (Searching.KmpMatch(tempText.ToLower(), "vivada".ToLower()))
                                         found = true;
                                     else
                                         found = false;

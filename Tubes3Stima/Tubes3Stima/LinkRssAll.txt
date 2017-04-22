@@ -1,1 +1,4 @@
-﻿http://tempo.co/rss/terkini
+﻿http://rss.detik.com/index.php/detikcom
+http://tempo.co/rss/terkini
+http://rss.vivanews.com/get/all
+http://www.antaranews.com/rss/terkini
